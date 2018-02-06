@@ -75,18 +75,30 @@ function endGame() {
 }
 
 function moveDodger(e) {
-  const code = e.which
+  e.preventDefault();
+  e.stopPropagation();
+  // if the key is the right arrow key, move the dodger to the right
+  // if the key is the left arrow key, move the dodger to the left
+  // use window.requestAnimationFrame, move the element 4px
 
-  if ([LEFT_ARROW, RIGHT_ARROW].indexOf(code) > -1) {
-    e.preventDefault()
-    e.stopPropagation()
-  }
+  $(document).on('keypress', function(key) {
 
-  if (code === LEFT_ARROW) {
-    moveDodgerLeft()
-  } else if (code === RIGHT_ARROW) {
-    moveDodgerRight()
+  if (key.which == 37) {
+    moveDodgerLeft();
+    }
+  if (key.which == 39) {
+    moveDodgerRight();
+    }
   }
+  );
+}
+
+function moveDodgerLeft() {
+  $("#dodger").style.left = (positionToInteger(myPosition) - 4);
+}
+
+function moveDodgerRight() {
+ $("#dodger").style.left = (positionToInteger(myPosition) +4);
 }
 
 function moveDodgerLeft() {
